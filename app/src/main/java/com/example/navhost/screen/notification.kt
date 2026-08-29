@@ -1,7 +1,9 @@
 package com.example.navhost.screen
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,31 +12,49 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
 import com.example.navhost.R
-import androidx.compose.foundation.layout.PaddingValues
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotificationScreen() {
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        DisposableEffect(view) {
+            val window = (view.context as Activity).window
+            val insetsController = WindowCompat.getInsetsController(window, view)
+            
+            insetsController.isAppearanceLightStatusBars = false
+            
+            onDispose {
+                // empty: রেস কন্ডিশন এড়াতে এখানে জোর করে রিসেট করছি না
+            }
+        }
+    }
+
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0), // Fix: ডাবল বটম প্যাডিং বন্ধ করবে
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -46,7 +66,7 @@ fun NotificationScreen() {
                 navigationIcon = {
                     IconButton(onClick = { /* TODO: Handle back navigation */ }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
                             tint = Color.White
                         )
@@ -61,8 +81,8 @@ fun NotificationScreen() {
                         )
                     }
                 },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color(0xFF186318) // Lite green background
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFF186318)
                 )
             )
         }
@@ -72,14 +92,14 @@ fun NotificationScreen() {
 }
 
 @Composable
-fun RowData(img: Int, data: String) {
+fun RowData(logo: Int, data: String) {
     Card(modifier = Modifier.padding(10.dp)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth().padding(8.dp)
         ) {
             Image(
-                painter = painterResource(id = img),
+                painter = painterResource(id = logo),
                 contentDescription = null,
                 modifier = Modifier.size(64.dp)
             )
@@ -98,12 +118,11 @@ fun PreviewRowData(innerPadding: PaddingValues) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFFFE0E0)) // Lite pink background
+            .background(Color(0xFFFFE0E0))
             .padding(innerPadding)
-            .padding(24.dp)
     ) {
         items(myLanguage()) { item ->
-            RowData(img = item.image, data = item.text)
+            RowData(logo = item.image, data = item.text)
         }
     }
 }
@@ -115,6 +134,13 @@ fun myLanguage(): List<Language> {
         Language(R.drawable.apple, "Apple"),
         Language(R.drawable.java, "Core Java"),
         Language(R.drawable.javascipt, "JavaScript"),
-        Language(R.drawable.lg, "4K UHD Smart TV")
+        Language(R.drawable.lg, "4K UHD Smart TV"),
+        Language(R.drawable.logo, "Logo Placeholder"),
+        Language(R.drawable.logo, "Logo Placeholder"),
+        Language(R.drawable.logo, "Logo Placeholder"),
+        Language(R.drawable.logo, "Logo Placeholder"),
+        Language(R.drawable.logo, "Logo Placeholder"),
+        Language(R.drawable.logo, "Logo Placeholder")
+
     )
 }
