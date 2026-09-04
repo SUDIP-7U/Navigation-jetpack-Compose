@@ -134,13 +134,13 @@ fun myLanguage(): List<Language> {
         Language(R.drawable.apple, "Apple"),
         Language(R.drawable.java, "Core Java"),
         Language(R.drawable.javascipt, "JavaScript"),
-        Language(R.drawable.lg, "4K UHD Smart TV"),
-        Language(R.drawable.logo, "Logo Placeholder"),
-        Language(R.drawable.logo, "Logo Placeholder"),
-        Language(R.drawable.logo, "Logo Placeholder"),
-        Language(R.drawable.logo, "Logo Placeholder"),
-        Language(R.drawable.logo, "Logo Placeholder"),
-        Language(R.drawable.logo, "Logo Placeholder")
+        Language(R.drawable.lg, "LG Smart TV"),
+        Language(R.drawable.hp, "Hp Laptop"),
+        Language(R.drawable.asus, "Asus"),
+        Language(R.drawable.lenovo, "Lenovo"),
+        Language(R.drawable.asus, "Asus"),
+        Language(R.drawable.casio, "CASIO"),
+        Language(R.drawable.logo, "Kotlin Multiplatform")
 
     )
 }
